@@ -33,24 +33,19 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
     async function main(){
+
         let locationData = getLocationData();
         console.log(getLocationData());
         let latitude = locationData.latitude;
         let longitude = locationData.longitude;
         let geolocation = locationData.geolocation;
-        console.log("Current lat: " +async function updateLocation() {
-            geolocation = document.getElementById("geosearch").value;
-            geolocation = geolocation.replace(/ /g, "+");
-            // console.log(geolocation);
-    
-            let data = await fetchData_geo(geolocation);
-            let main_location = data[0];
-            console.log(main_location);
-            latitude = main_location.lat;
-            longitude = main_location.lon;
-            console.log("Main location lat: "+latitude);
-            console.log("Main location long: "+longitude);
-        });
+
+       
+        document.getElementById("city").innerText = geolocation;
+
+        geolocation = geolocation.replace(/ /g, "+");
+
+        console.log("Current lat: " +latitude);
         console.log("Current long: "+longitude);
         console.log("Current geo: "+geolocation);
 
@@ -60,13 +55,13 @@ document.addEventListener("DOMContentLoaded", function(){
         console.log(data);
         
         
-        if (!data) { // FIXED: Check if data is received before proceeding
+        if (!data) { //Check if data is received
             console.error("No data received.");
             return;
         }
     
         let hourly = data.hourly;
-        if (!hourly) { // FIXED: Check if hourly data exists
+        if (!hourly) { //Check if hourly data exists
             console.error("Hourly data missing.");
             return;
         }
@@ -75,13 +70,19 @@ document.addEventListener("DOMContentLoaded", function(){
         let temperatures = hourly.temperature_2m;
         let temp_length = temperatures.length;
         let latest_temp = temperatures[temp_length - 1];
-        console.log(latest_temp);
-        
+        console.log('Latest temperature: '+latest_temp);
+
+       
 
         let time = hourly.time;
         let time_length = time.length;
         let latest_time = time[time_length - 1];
-        console.log(latest_time);
+        console.log('Latest time: '+latest_time);
+
+        let precipitation = hourly.precipitation;
+        let latest_precipitation = precipitation[time_length-1];
+        console.log('Latest precipitation: '+latest_precipitation);
+        
 
     
         let relative_humidity_2m = hourly.relative_humidity_2m;
@@ -94,13 +95,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
         //Display Humidity
         let humid_display = document.getElementById("relative_humidity");
-        humid_display.innerHTML = `Humidity: ${latest_humid}%`;
+        humid_display.innerText = `Humidity: ${latest_humid}%`;
         
         
-
-
-        // console.log(temperatures); 
-        // console.log(time);
+        //Display precipation
+        let precipation_display = document.getElementById("precipation");
+        precipation_display.innerText = `Precipitation ${latest_precipitation}%`;
+       
 
 
     }
