@@ -45,7 +45,8 @@ export async function updateLocation() {
         console.error("failed");
         latitude = 0;
         longitude = 0;
-        main_location = "No where";
+        
+        geolocation = "No where";
 
     }else{
         

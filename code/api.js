@@ -91,6 +91,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
        let weather = getWeatherDescription(weather_code);
        console.log(weather);
+
+       document.getElementById("weather_condition").innerText = weather;
        
 
     }
