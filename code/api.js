@@ -41,10 +41,14 @@ document.addEventListener("DOMContentLoaded", function(){
         let latitude = locationData.latitude;
         let longitude = locationData.longitude;
         let geolocation = locationData.geolocation;
+        let display_name = locationData.display_name;
+        console.log(typeof display_name);
+        console.log(typeof geolocation);
+        
 
-        document.getElementById("city").innerText = geolocation;
+        document.getElementById("city").innerText = display_name;
        
-        document.getElementById("city").innerText = geolocation;
+        
 
         geolocation = geolocation.replace(/ /g, "+");
 

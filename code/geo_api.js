@@ -2,8 +2,10 @@
 
 
 let geolocation = "Ho Chi Minh"; 
+let main_location = {};
 let latitude = 10.823;
 let longitude = 106.629; //Default(Ho Chi Minh)
+let display_name = "Ho Chi Minh";
 
 async function fetchData_geo(geolocation){
     try{
@@ -28,28 +30,27 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 export function getLocationData(){
-    return {latitude, longitude, geolocation};
+    return {latitude, longitude, geolocation, display_name};
 };
 
 export async function updateLocation() {
     geolocation = document.getElementById("geosearch").value;
     
-    
-
-
-
     let data = await fetchData_geo(geolocation);
     let main_location = data[0];
+    
+    console.log(main_location);
     console.log(data);
     if(data.length == 0){
         console.error("failed");
         latitude = 0;
         longitude = 0;
-        
         geolocation = "No where";
+        display_name = "No Where";
 
     }else{
-        
+        display_name = main_location.display_name;
+        display_name = display_name.substring(0, display_name.indexOf(','));
         console.log(main_location);
         latitude = main_location.lat;
         longitude = main_location.lon;
