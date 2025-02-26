@@ -1,11 +1,13 @@
 import { getLocationData } from "./geo_api.js"; 
 import { updateLocation } from "./geo_api.js";
+import { getWeatherDescription } from "./weather_code.js";
 
 
 document.addEventListener("DOMContentLoaded", function(){
 
     
-    // console.log(getLocationData());
+    
+    
     
     
     
@@ -13,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function(){
     async function fetchData(latitude, longitude){
         try{
             
-            const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,precipitation,rain,showers,snowfall&hourly=temperature_2m&timezone=Asia%2FSingapore`);
+            const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,precipitation,rain,showers,snowfall,weather_code&hourly=temperature_2m&timezone=Asia%2FSingapore`);
             if(!response.ok){
                 throw new Error("Could not fetch error");
             }
@@ -84,6 +86,12 @@ document.addEventListener("DOMContentLoaded", function(){
        document.getElementById("precipitation").innerText = `Precipitation: ${current_precipitation}%`;
        
 
+       let weather_code = current.weather_code;
+       console.log(`Weather code: ${weather_code}`);
+
+       let weather = getWeatherDescription(weather_code);
+       console.log(weather);
+       
 
     }
 
