@@ -1,4 +1,5 @@
 export function getWeatherDescription(code) {
+  
         // Convert to num
         const weatherCode = Number(code);
         
@@ -7,7 +8,6 @@ export function getWeatherDescription(code) {
           return "Invalid weather code";
         }
         
-        // Map of weather codes to their descriptions
         const weatherCodeMap = {
           0: "Clear sky",
           1: "Mainly clear",
@@ -42,3 +42,5 @@ export function getWeatherDescription(code) {
         
         return weatherCodeMap[weatherCode] || "Unknown weather code";
       }
+
+

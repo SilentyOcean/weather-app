@@ -1,6 +1,7 @@
 import { getLocationData } from "./geo_api.js"; 
 import { updateLocation } from "./geo_api.js";
 import { getWeatherDescription } from "./weather_code.js";
+let weather_code =0;
 
 
 document.addEventListener("DOMContentLoaded", function(){
@@ -108,3 +109,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
 });
+
+export function getWeatherCode(){
+    return weather_code;
+}
