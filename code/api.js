@@ -106,7 +106,11 @@ document.addEventListener("DOMContentLoaded", function(){
     //    for(let i = 0; i < hourly_time.length; i++){
     //         console.log(hourly_time[i]);
     //    }
+
+    
     }
+
+
 
     main();
     document.getElementById("geosubmit").addEventListener("click", async function(){
