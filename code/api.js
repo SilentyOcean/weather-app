@@ -1,33 +1,31 @@
 import { getLocationData } from "./geo_api.js"; 
 import { updateLocation } from "./geo_api.js";
 import { getWeatherDescription } from "./weather_code.js";
-let weather_code =0;
+
+let weather_code = 0;
+
+
+export async function fetchData(latitude, longitude){
+    try{
+        
+        const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,precipitation,rain,showers,snowfall,weather_code&hourly=temperature_2m&timezone=Asia%2FSingapore`);
+        if(!response.ok){
+            throw new Error("Could not fetch error");
+        }
+        const data = await response.json();
+        return data;
+    }
+    catch(error){
+
+    }
+    
+}
+
 
 
 document.addEventListener("DOMContentLoaded", function(){
 
-    
-    
-    
-    
-    
-    
 
-    async function fetchData(latitude, longitude){
-        try{
-            
-            const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,precipitation,rain,showers,snowfall,weather_code&hourly=temperature_2m&timezone=Asia%2FSingapore`);
-            if(!response.ok){
-                throw new Error("Could not fetch error");
-            }
-            const data = await response.json();
-            return data;
-        }
-        catch(error){
-
-        }
-        
-    }
 
     //Timezone is Singapore
     //ISO 8601 Formats: y/m/d/h/m/s/ms
@@ -68,11 +66,7 @@ document.addEventListener("DOMContentLoaded", function(){
             return;
         }
     
-        let hourly = data.hourly;
-        if (!hourly) { //Check if hourly data exists
-            console.error("Hourly data missing.");
-            return;
-        }
+        
 
        let current = data.current;
        let current_time = current.time;
@@ -98,8 +92,20 @@ document.addEventListener("DOMContentLoaded", function(){
        console.log(weather);
 
        document.getElementById("weather_condition").innerText = weather;
-       
 
+
+
+    //    let hourly = data.hourly;
+    //    if (!hourly) { //Check if hourly data exists
+    //         console.error("Hourly data missing.");
+    //         return;
+    //    }
+    //    let hourly_time = hourly.time;
+    //    console.log(hourly_time);
+
+    //    for(let i = 0; i < hourly_time.length; i++){
+    //         console.log(hourly_time[i]);
+    //    }
     }
 
     main();
@@ -112,4 +118,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
 export function getWeatherCode(){
     return weather_code;
+}
+
+export function getData(){
+    return data;
 }
