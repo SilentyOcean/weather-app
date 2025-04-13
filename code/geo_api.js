@@ -33,9 +33,10 @@ export function getLocationData(){
     return {latitude, longitude, geolocation, display_name};
 };
 
+
 export async function updateLocation() {
     geolocation = document.getElementById("geosearch").value;
-    
+   
     let data = await fetchData_geo(geolocation);
     let main_location = data[0];
     

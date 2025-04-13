@@ -27,8 +27,7 @@
 import { getWeatherCode } from "./api";
 document.addEventListener("DOMContentLoaded", function(){
 
-    console.log("Hello World");
-
+    
     let snow_bg= "rgb(176,224,230)";
     let snow_gradient = "linear-gradient(159deg, rgb(1, 20, 22) 0%, rgba(70,130,180,1) 100%)"; 
 
