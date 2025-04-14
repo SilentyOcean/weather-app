@@ -111,20 +111,42 @@ function setHourlyWeather(data){
 		if(i == 0){
 			let trow = document.createElement('tr');
 			for(let n = 0; n < hourlyWeather.length; n++){
-				let th = document.createElement('th');
-				let node = document.createTextNode(hourlyWeather[n].date);
-				th.appendChild(node);
-				trow.appendChild(th);
+				if(n == 0){
+					let th = document.createElement('th');
+					let node = document.createTextNode("");
+					th.appendChild(node);
+					trow.appendChild(th);
+				}
+				else{	
+					let th = document.createElement('th');
+					let text = hourlyWeather[n-1].date.replaceAll("-", " ");
+				
+					console.log(text);
+					let node = document.createTextNode(text);
+					th.appendChild(node);
+					trow.appendChild(th);
+				}
+				
 			}
 			hourlyWeather_display.appendChild(trow);
 		}
 		else{
 			let trow = document.createElement('tr');
 			for(let n = 0; n < hourlyWeather.length; n++){
-				let td = document.createElement('td');
-				let node = document.createTextNode(hourlyWeather[n].temp[i - 1]);
-				td.appendChild(node);
-				trow.appendChild(td);
+				if(n == 0){
+					let td = document.createElement('td');
+					let time = hourlyWeather[0].time[i - 1];
+					let node = document.createTextNode(time);
+					td.appendChild(node);
+					trow.appendChild(td);
+				}
+				else{
+					let td = document.createElement('td');
+					let node = document.createTextNode(hourlyWeather[n-1].temp[i - 1]);
+					td.appendChild(node);
+					trow.appendChild(td);
+				}
+				
 			}
 			hourlyWeather_display.appendChild(trow);
 		}
