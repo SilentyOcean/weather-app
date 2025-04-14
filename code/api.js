@@ -33,17 +33,10 @@ async function main(){
     let longitude = locationData.longitude;
     let geolocation = locationData.geolocation;
     let display_name = locationData.display_name;
-    console.log(typeof display_name);
-    console.log(typeof geolocation);
+    
     
 
-    document.getElementById("city").innerText = display_name;
-    geolocation = geolocation.replace(/ /g, "+");
-
-    console.log("Current lat: " + latitude);
-    console.log("Current long: "+ longitude);
-    console.log("Current geo: "+ geolocation);
-
+    
     
 
     let data = await fetchData(latitude, longitude);   // !DATA IS AN OBJECT REMEMBER THIS
@@ -58,24 +51,33 @@ async function main(){
    
 
    	let current = data.current;
-   	let current_time = current.time;
-   	let current_temp = current.temperature_2m;
-   	let current_humid = current.relative_humidity_2m;
-   	let current_precipitation = current.precipitation;
-   	let current_rain = current.rain;
-   	let current_shower = current.showers;
-   	let current_snowfall = current.snowfall;
+   	const {
+		time: current_time,
+		temperature_2m: current_temp,
+		relative_humidity_2m: current_humid,
+		precipitation: current_precipitation,
+		rain: current_rain,
+		showers: current_shower,
+		snowfall: current_snowfall,
+		weather_code
+	} = current; //Destructuring
+
+	document.getElementById("city").innerText = display_name;
+    geolocation = geolocation.replace(/ /g, "+");
+
+    console.log("Current lat: " + latitude);
+    console.log("Current long: "+ longitude);
+    console.log("Current geo: "+ geolocation);
+
 
    
    
    	document.getElementById("temperature").innerText = `Temperature: ${current_temp}ºC`;
    	document.getElementById("relative_humidity").innerText = `Humidity: ${current_humid}%`;
    	document.getElementById("precipitation").innerText = `Precipitation: ${current_precipitation}%`;
-   	console.log("Current Tempertaure: ")
+   
    
 
-   	let weather_code = current.weather_code;
-   	console.log(`Weather code: ${weather_code}`);
 
    	let weather = getWeatherDescription(weather_code);
    	console.log(weather);
@@ -87,9 +89,11 @@ async function main(){
 	
 	let hourlyWeather_display = document.getElementById("hourlyWeatherTable");
 	let tableChildren = hourlyWeather_display.children;
+
 	console.log(tableChildren);
 
 	//Set hourly weather
+
 	if(tableChildren.length == 0){
 		setHourlyWeather(data);
 	}
@@ -106,52 +110,40 @@ async function main(){
 
 function setHourlyWeather(data){
 	let hourlyWeather = getHourlyWeather(data);
-	let hourlyWeather_display = document.getElementById("hourlyWeatherTable");
-	for(let i = 0; i < 25; i++){
-		if(i == 0){
-			let trow = document.createElement('tr');
-			for(let n = 0; n < hourlyWeather.length; n++){
-				if(n == 0){
-					let th = document.createElement('th');
-					let node = document.createTextNode("");
-					th.appendChild(node);
-					trow.appendChild(th);
-				}
-				else{	
-					let th = document.createElement('th');
-					let text = hourlyWeather[n-1].date.replaceAll("-", " ");
-				
-					console.log(text);
-					let node = document.createTextNode(text);
-					th.appendChild(node);
-					trow.appendChild(th);
-				}
-				
-			}
-			hourlyWeather_display.appendChild(trow);
-		}
-		else{
-			let trow = document.createElement('tr');
-			for(let n = 0; n < hourlyWeather.length; n++){
-				if(n == 0){
-					let td = document.createElement('td');
-					let time = hourlyWeather[0].time[i - 1];
-					let node = document.createTextNode(time);
-					td.appendChild(node);
-					trow.appendChild(td);
-				}
-				else{
-					let td = document.createElement('td');
-					let node = document.createTextNode(hourlyWeather[n-1].temp[i - 1]);
-					td.appendChild(node);
-					trow.appendChild(td);
-				}
-				
-			}
-			hourlyWeather_display.appendChild(trow);
-		}
-		
-	}
+let table = document.getElementById("hourlyWeatherTable");
+
+//HeaderRows
+let headerRows = document.createElement('tr');
+headerRows.appendChild(document.createElement('th')); //Empty top left header
+
+
+for(let entry of hourlyWeather){
+    let th = document.createElement('th');
+    th.textContent = entry.date.replaceAll("-", " ");
+    headerRows.appendChild(th)
+}
+table.appendChild(headerRows);
+//Data rows
+
+for(let i = 0; i < 24; i++){
+    let time = hourlyWeather[0].time[i] //Time are the same
+    let dataRow = document.createElement('tr');
+    let timeData = document.createElement('td');
+    timeData.textContent = time;
+    dataRow.appendChild(timeData);
+    
+    
+    for(let entry of hourlyWeather){
+        let tempData = document.createElement('td');
+        tempData.textContent = entry.temp[i];
+        dataRow.appendChild(tempData);
+    }
+    table.appendChild(dataRow);
+}
+
+
+
+
 };
 
 
