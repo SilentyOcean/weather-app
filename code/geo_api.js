@@ -1,6 +1,3 @@
-
-
-
 let geolocation = "Ho Chi Minh"; 
 let main_location = {};
 let latitude = 10.823;
@@ -21,14 +18,6 @@ async function fetchData_geo(geolocation){
     }
     
 }
-
-document.addEventListener("DOMContentLoaded", function(){
-
-  
-
-
-});
-
 export function getLocationData(){
     return {latitude, longitude, geolocation, display_name};
 };
@@ -46,8 +35,8 @@ export async function updateLocation() {
         console.error("failed");
         latitude = 0;
         longitude = 0;
-        geolocation = "No where";
-        display_name = "No Where";
+        geolocation = "Nowhere";
+        display_name = "NoWhere";
 
     }else{
         display_name = main_location.display_name;
@@ -65,3 +54,7 @@ export async function updateLocation() {
 
     
 };
+
+//Credits
+//Geocoding API from https://geocode.maps.co/
+//Weather API from https://open-meteo.com/

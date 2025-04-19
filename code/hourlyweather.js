@@ -1,6 +1,5 @@
 export function getHourlyWeather(data){ //Need to return a nested array
     let hourly = data.hourly;
-    
     let getHourlyTemp = [];
     
    

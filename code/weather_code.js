@@ -1,6 +1,5 @@
 export function getWeatherDescription(code) {
-  
-        // Convert to num
+        //Convert to num
         const weatherCode = Number(code);
         
         
