@@ -25,6 +25,15 @@ export async function fetchData(latitude, longitude){
     }
 
 }
+
+function createEmptyWeatherData() {
+    return {
+        hourly: {
+            time: Array(24).fill("N/A"), // 24 hours set as "N/A"
+            temperature_2m: Array(24).fill(0) // 24 temperature values set to 0
+        }
+    };
+}
 	
 async function main(){
     let locationData = getLocationData();
@@ -35,6 +44,7 @@ async function main(){
     let display_name = locationData.display_name;
 
     let data = await fetchData(latitude, longitude);   
+	
     console.log(data);
 
 	//Check if data is received
@@ -71,6 +81,7 @@ async function main(){
    		current_temp = 0;
 		current_humid = 0;
 		current_precipitation = 0;
+		data = createEmptyWeatherData(); // Use default dataset
    	}
    
    	document.getElementById("temperature").innerText = `Temperature: ${current_temp}ºC`;
@@ -108,6 +119,10 @@ async function main(){
 };
 
 function setHourlyTemperature(data){
+
+	console.log("DATA IS HERE");
+	console.log(data);
+
 	let hourlyWeather = getHourlyWeather(data);
 	let table = document.getElementById("hourlyWeatherTable");
 
@@ -117,7 +132,7 @@ function setHourlyTemperature(data){
 	
 	for(let entry of hourlyWeather){
 		let th = document.createElement('th');
-		th.textContent = entry.date.replaceAll("-", " ");
+		th.textContent = entry.date.replaceAll("-", "/");
 		headerRows.appendChild(th)
 	}
 	table.appendChild(headerRows);

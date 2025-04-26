@@ -28,9 +28,12 @@ export async function updateLocation() {
    
     let data = await fetchData_geo(geolocation);
     let main_location = data[0];
-    
+
+    console.log("Main Location: ");
     console.log(main_location);
+    console.log("Data: ");
     console.log(data);
+
     if(data.length == 0){
         console.error("failed");
         latitude = 0;
@@ -38,9 +41,12 @@ export async function updateLocation() {
         geolocation = "Nowhere";
         display_name = "NoWhere";
 
+
     }else{
         display_name = main_location.display_name;
-        display_name = display_name.substring(0, display_name.indexOf(','));
+        if (display_name.includes(',')) {
+            display_name = display_name.substring(0, display_name.indexOf(','));
+        }
         console.log(main_location);
         latitude = main_location.lat;
         longitude = main_location.lon;
