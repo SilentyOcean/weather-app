@@ -34,11 +34,11 @@ async function main(){
     let geolocation = locationData.geolocation;
     let display_name = locationData.display_name;
 
-    let data = await fetchData(latitude, longitude);   // !DATA IS AN OBJECT REMEMBER THIS
+    let data = await fetchData(latitude, longitude);   
     console.log(data);
 
-
-    if (!data) { //Check if data is received
+	//Check if data is received
+    if (!data) { 
         console.error("No data received.");
         return;
     }
@@ -51,9 +51,9 @@ async function main(){
 		temperature_2m: current_temp,
 		relative_humidity_2m: current_humid,
 		precipitation: current_precipitation,
-		rain: current_rain,
-		showers: current_shower,
-		snowfall: current_snowfall,
+		// rain: current_rain,
+		// showers: current_shower,
+		// snowfall: current_snowfall,
 		weather_code
 	} = current; //Destructuring
 	
@@ -92,13 +92,13 @@ async function main(){
 
 	console.log(tableChildren);
 
-	//Set hourly weather
+	//Set hourly temperature
 	if(tableChildren.length == 0){
-		setHourlyWeather(data);
+		setHourlyTemperature(data);
 	}
 	else{
 		hourlyWeather_display.innerHTML = '';
-		setHourlyWeather(data);
+		setHourlyTemperature(data);
 	}
 
 
@@ -107,15 +107,14 @@ async function main(){
 
 };
 
-function setHourlyWeather(data){
+function setHourlyTemperature(data){
 	let hourlyWeather = getHourlyWeather(data);
 	let table = document.getElementById("hourlyWeatherTable");
 
 	//HeaderRows
 	let headerRows = document.createElement('tr');
 	headerRows.appendChild(document.createElement('th')); //Empty top left header
-
-
+	
 	for(let entry of hourlyWeather){
 		let th = document.createElement('th');
 		th.textContent = entry.date.replaceAll("-", " ");
@@ -137,12 +136,9 @@ function setHourlyWeather(data){
 			tempData.textContent = entry.temp[i] + "ºC";
 			dataRow.appendChild(tempData);
 		}
+
 		table.appendChild(dataRow);
 	}
-
-
-
-
 };
 
 

@@ -2,7 +2,6 @@ export function getWeatherDescription(code) {
         //Convert to num
         const weatherCode = Number(code);
         
-        
         if (isNaN(weatherCode)) {
           return "Invalid weather code";
         }
@@ -37,8 +36,7 @@ export function getWeatherDescription(code) {
           96: "Thunderstorm with slight hail",
           99: "Thunderstorm with heavy hail"
         };
-        
-        
+      
         return weatherCodeMap[weatherCode] || "Unknown weather code";
       }
 

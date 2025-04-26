@@ -47,12 +47,6 @@ export async function updateLocation() {
         console.log("Main location lat: "+latitude);
         console.log("Main location long: "+longitude);
     }
-    
-   
-    
-    
-
-    
 };
 
 //Credits

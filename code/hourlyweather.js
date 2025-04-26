@@ -1,24 +1,18 @@
-export function getHourlyWeather(data){ //Need to return a nested array
+export function getHourlyWeather(data){ 
     let hourly = data.hourly;
     let getHourlyTemp = [];
-    
-   
 
-    if (!hourly) { //Check if hourly data exists
+    if (!hourly) { 
         console.error("Hourly data missing.");
         return;
     }
     let hourly_time = hourly.time;
-    let hourly_temperature = hourly.temperature_2m; //Every 24 value the day change, put 23 value inside each value of getHourlyTemp
-
-    
+    let hourly_temperature = hourly.temperature_2m; 
 
     //Every 24 element, the day change
     //So from hourly_time[0] to hourly_time[24], the day change
-    //Current date is hourly_time[0] i think
-    //i = i + 24
-
-    
+    //Current date is hourly_time[0] 
+ 
     const totalDays = Math.floor(hourly_time.length / 24);
 
     for(let i = 0; i < totalDays; i++){
@@ -38,3 +32,4 @@ export function getHourlyWeather(data){ //Need to return a nested array
     return getHourlyTemp;
 
 };   
+

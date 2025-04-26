@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let sunny_bg = "#76daff";
     let sunny_gradient = "linear-gradient(315deg, #76daff 0%, #fcd000 74%)";
 
-    let raining_bg = "rgb(0,71,171)visual studio code local server doesn't display newly created files in debugger";
+    let raining_bg = "rgb(0,71,171)";
     let raining_gradient = "linear-gradient(159deg, rgba(0,71,171,1) 0%, rgba(28,169,201,1) 100%)";
 
    
